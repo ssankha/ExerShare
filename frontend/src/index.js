@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import './index.css';
 import LognInPage from './routes/log-in-page';
+import RegistrationPage from './routes/registration-page';
 import reportWebVitals from './reportWebVitals';
 
 let userEmail = "";
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {  
     path: "/",
     element: <LognInPage />,
+  },
+  {  
+    path: "/registration",
+    element: <RegistrationPage />,
   }
 ]);
 
