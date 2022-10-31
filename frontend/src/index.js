@@ -8,6 +8,12 @@ import './index.css';
 import LognInPage from './routes/log-in-page';
 import reportWebVitals from './reportWebVitals';
 
+let userEmail = "";
+
+function setUserEmail(newEmail){
+  userEmail = newEmail;
+}
+
 const router = createBrowserRouter([
   {  
     path: "/",
@@ -26,3 +32,5 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+export {userEmail, setUserEmail};
