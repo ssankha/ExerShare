@@ -54,7 +54,7 @@ function LogInPage() {
 
     const handleRegisterClicked = () => {
 
-        // add navigation to registrationpage here
+        navigate('../registration');
 
         return;
     }
@@ -68,7 +68,7 @@ function LogInPage() {
             <text className='log_in_page_field_text'>EMAIL: </text><input className='log_in_page_input' onChange={handleEmailChange}></input>
         </div>
         <div className='log_in_page_field'>
-            <text className='log_in_page_field_text'>PASSWORD: </text><input className='log_in_page_input' onChange={handlePasswordChange}></input>
+            <text className='log_in_page_field_text'>PASSWORD: </text><input type='password' className='log_in_page_input' onChange={handlePasswordChange}></input>
         </div>
         <div className='log_in_page_new_user' onClick={handleRegisterClicked}>
             New user? Click <u>here to register</u>
