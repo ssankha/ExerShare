@@ -1,8 +1,11 @@
 import {useState} from 'react';
 import './log-in-page.css';
 import HomeScreenButton from '../components/buttons/home-screen-button';
+import {userEmail, setUserEmail} from '../index';
+import {useNavigate} from 'react-router-dom';
 
 function LogInPage() {
+    const navigate = useNavigate();
     const [info, setInfo] = useState({
         email: "",
         password: "",
@@ -18,10 +21,41 @@ function LogInPage() {
 
 
     const handleSignInClicked = () => {
-        return;
+        async function check(){
+            try{
+                let status;
+                await fetch('/api/signIn',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      email: info.email,
+                      password: info.password
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => status = data.status);
+                if(status === "success"){
+                    setUserEmail(info.email);
+
+                    //enter navigation change right here
+
+                } else {
+                    return;
+                }
+            } catch(e){
+
+                //possibly trigger UI error message for incorrect email+password here
+
+                return;
+            }
+            
+        }
+        check();
     }
 
     const handleRegisterClicked = () => {
+
+        // add navigation to registrationpage here
+
         return;
     }
 
