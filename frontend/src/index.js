@@ -8,6 +8,7 @@ import './index.css';
 import LognInPage from './routes/log-in-page';
 import RegistrationPage from './routes/registration-page';
 import reportWebVitals from './reportWebVitals';
+import HomePage from './routes/home-page';
 import CreatePostPage from './routes/create-post-page';
 
 let userEmail = "";
@@ -21,6 +22,9 @@ const router = createBrowserRouter([
     path: "/",
     element: <LognInPage />,
   },
+  {
+    path:"/main",
+    element: <HomePage/>
   {  
     path: "/registration",
     element: <RegistrationPage />,
