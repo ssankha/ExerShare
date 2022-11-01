@@ -1,0 +1,11 @@
+.create_post_button {
+    background-color: rgb(39, 39, 39);
+    font-family: 'Average';
+    font-size: 30px;
+    text-align: center;
+    width: 20%;
+    padding: 10px;
+    border-radius: 25px;
+    color: beige;
+    box-shadow: 0px 5px 5px black;
+}
