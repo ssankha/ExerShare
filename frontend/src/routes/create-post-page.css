@@ -1,0 +1,69 @@
+.create_post_page_background{
+    background-color: rgba(78, 78, 78, 1);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+}
+.create_post_page_container{
+    height: 100%;
+    width: 60%;
+    background-color: rgba(57, 57, 57, 1);
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+}
+.create_post_page_top_container{
+    height: 400px;
+    z-index: 2;
+    border-bottom-left-radius: 45px;
+    border-bottom-right-radius: 45px;
+    background-color: rgba(39, 39, 39, 1);
+
+}
+.create_post_page_title_field{
+    width: 50%;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-family: "PT Serif Caption";
+    font-size: 32px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+}
+.create_post_page_title_input{
+    border: none;
+    margin-left: 20px;
+    width: auto;
+    font-family: "PT Serif Caption";
+    font-size: 32px;
+    color: white;
+    background-color: rgba(39, 39, 39, 1);
+}
+.create_post_page_content_field{
+    width: 75%;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-family: "PT Serif Caption";
+    font-size: 32px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+}
+.create_post_page_content_input{
+    border: none;
+    width: 100%;
+    height: 250px;
+    resize: none;
+    margin-left: 20px;
+    font-family: "PT Serif Caption";
+    font-size: 20px;
+    color: rgba(170, 170, 170, 1);
+    background-color: rgba(39, 39, 39, 1);
+}
+.create_post_page_post_button{
+    padding-top: 20px;
+}
