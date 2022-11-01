@@ -44,7 +44,7 @@ Category
                   .then(data => status = data.status);
                 if(status === "success"){
 
-                    //enter navigation change right here
+                    navigate('../main');
 
                 } else {
                     console.log("not signed in")

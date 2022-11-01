@@ -36,7 +36,7 @@ function LogInPage() {
                 if(status === "success"){
                     setUserEmail(info.email);
 
-                    //enter navigation change right here
+                    navigate('../main');
 
                 } else {
                     return;
