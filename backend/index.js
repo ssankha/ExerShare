@@ -29,6 +29,17 @@ app.post('/api/register', function(req, res){
     }
 });
 
+app.post('/api/post', function(req, res){
+
+    // add SQL query that adds post to database
+
+    if(req.body.email !== undefined && req.body.email !== ""){
+        res.json({ status: "success" });
+    } else {
+        res.json({status: "failed"})
+    }
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
