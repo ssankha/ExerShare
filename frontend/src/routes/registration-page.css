@@ -1,11 +1,12 @@
 .registration_page_container{
     background-color: rgba(140, 126, 77, 1);
-    height: 100vh;
+    height: 100%;
     margin: 0;
     display: flex;
     flex-direction: column;
     align-content: center;
     text-align: center;
+    padding-bottom: 3%;
 }
 .registration_page_title{
     padding-top: 60px;
@@ -39,7 +40,7 @@
 .registration_page_new_user{
     font-family: 'Average';
     font-size: 24px;
-    padding-top: 140px;
+    padding-top: 5%;
 }
 .registration_page_sign_in_button{
     padding-top: 20px;
