@@ -5,7 +5,7 @@ function MainPageIconButton() {
 
     return (
     <div className='iconButton'>
-        <img src={mainPageIcon} alt='mainPageIconButton'></img>
+        <img className='footer_icon' src={mainPageIcon} alt='mainPageIconButton'></img>
     </div>
     );
 }

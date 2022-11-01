@@ -5,7 +5,7 @@ function ProfileIconButton() {
 
     return (
     <div className='iconButton'>
-        <img src={groupsIcon} alt='groupsIconButton'></img>
+        <img className='footer_icon' src={groupsIcon} alt='groupsIconButton'></img>
     </div>
     );
 }
