@@ -1,11 +1,27 @@
+require('dotenv').config()
+
 const express = require("express");
 const bodyParser = require('body-parser');
+
+const connection = require('./db');
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Added by oliver, this route will actually work and call the DB. Will look at the `Users` table.
+app.route('/api/user/:searchUserEmail')
+    .get(function(req, res, next) {
+    connection.query(
+        "SELECT userId, email, bio FROM `Users` WHERE email = ?", req.params.searchUserEmail,
+        function(error, results, fields) {
+            if (error) throw error;
+            res.json(results);
+        }
+    );
+});
 
 app.post('/api/signIn', function(req, res){
 
