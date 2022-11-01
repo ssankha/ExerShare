@@ -1,0 +1,19 @@
+.headerContainer {
+    background-color: rgba(140, 126, 77, 1);
+    height: 130px;
+    box-sizing: border-box;
+    width: 100%;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0px 8px 8px grey;
+}
+
+.appTitle {
+    color: black;
+    font-family: 'Revalia';
+    margin-bottom: 20px;
+    font-size: 80px;
+    text-align: center;
+}

@@ -7,6 +7,7 @@ import {
 import './index.css';
 import LognInPage from './routes/log-in-page';
 import reportWebVitals from './reportWebVitals';
+import HomePage from './routes/home-page';
 
 let userEmail = "";
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {  
     path: "/",
     element: <LognInPage />,
+  },
+  {
+    path:"/main",
+    element: <HomePage/>
   }
 ]);
 
