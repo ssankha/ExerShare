@@ -8,9 +8,9 @@ function BlankFooter() {
 
     return (
         <div className="footerContainer">
-            <GroupsIconButton className="iconButton"></GroupsIconButton>
-            <MainPageIconButton className="iconButton"></MainPageIconButton>
-            <ProfileIconButton className="iconButton"></ProfileIconButton>
+            <GroupsIconButton></GroupsIconButton>
+            <MainPageIconButton></MainPageIconButton>
+            <ProfileIconButton></ProfileIconButton>
         </div>
     );
 }

@@ -1,4 +1,12 @@
+.iconButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
 img {
-    width:8%;
-    height:8%;
+    width: 25%;
+    height: 25%;
 }

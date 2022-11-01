@@ -4,7 +4,7 @@ import groupsIcon from '../images/profile_icon.png'
 function ProfileIconButton() {
 
     return (
-    <div className='IconButton'>
+    <div className='iconButton'>
         <img src={groupsIcon} alt='groupsIconButton'></img>
     </div>
     );

@@ -1,12 +1,11 @@
 .main_page_container {
     height: 100vh;
-    margin-top: 110px;
     background-color: rgb(78, 78, 78);
 }
 
 .break {
     background-color: rgb(78, 78, 78);
-    height: 3%;
+    height: 4%;
     width: 100%
     
 }
