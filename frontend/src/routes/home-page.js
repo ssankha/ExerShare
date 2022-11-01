@@ -19,17 +19,17 @@ Triceps
 
     return (
         <div>
-            <BlankHeader></BlankHeader>
+            <BlankHeader />
         
             <div className='main_page_container'>
                 <div className='break'></div>
                 <center>
-                <CreatePostButton></CreatePostButton>
+                <CreatePostButton />
                 {Post(demoTitle, demoAuthor, demoContent, demoLikeCount)}
                 </center>
             </div>
 
-            <BlankFooter></BlankFooter>
+            <BlankFooter />
         </div>
 
     );
