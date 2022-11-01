@@ -1,0 +1,13 @@
+.rounded_button{
+    background-color: rgba(39, 39, 39, 1);
+    color: rgba(206, 184, 136, 1);
+    height: 83px;
+    width: 262px;
+    border-radius: 40px;
+    margin: auto;
+    font-size: 40px;
+    font-family: 'PT Serif Caption';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
