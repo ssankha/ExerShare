@@ -10,6 +10,7 @@ import RegistrationPage from './routes/registration-page';
 import reportWebVitals from './reportWebVitals';
 import HomePage from './routes/home-page';
 import CreatePostPage from './routes/create-post-page';
+import ProfilePage from './routes/profile-page';
 
 let userEmail = "";
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/create_post",
     element: <CreatePostPage />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
   }
 ]);
 
