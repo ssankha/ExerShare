@@ -35,6 +35,7 @@ function LogInPage() {
                   .then(data => status = data.status);
                 if(status === "success"){
                     setUserEmail(info.email);
+                    window.localStorage.setItem('userEmail', info.email);
 
                     navigate('../main');
 
