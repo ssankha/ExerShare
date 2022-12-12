@@ -8,6 +8,7 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
+    flex-shrink: 0;
 
 }
 .post_header_container{
