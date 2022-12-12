@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import BlankHeader from '../components/views/BlankHeader';
 import './profile-page.css'
 import BlankFooter from '../components/views/BlankFooter';
-import Post from '../components/views/Post';
+import MyPost from '../components/views/MyPost';
 import { setUserEmail, userEmail } from '..';
 
 
 function ProfilePage() {
     //const navigate = useNavigate();
-    const [slideValue, setSlideValue] = useState("goals");
+    const [slideValue, setSlideValue] = useState("posts");
     const [editing, setEditing] = useState(false);
     const [editableInfo, setEditableInfo] = useState({bio: "", pounds: ""});
     const [info, setInfo] = useState({numOfGoalsCompleted: 0});
@@ -85,9 +85,11 @@ function ProfilePage() {
             }
         }
         getGoals();
+    }, [])
+
+    useEffect(() => {
         async function getPosts(){
             try{
-                let res;
                 await fetch('/api/getMyPosts',{
                     method: 'POST',
                     body: JSON.stringify({
@@ -95,12 +97,7 @@ function ProfilePage() {
                     }),
                     headers: {"Content-Type": "application/json"}
                   }).then(response => response.json())
-                  .then(data => res = data);
-                if(res.status === "success"){
-                    setPosts(res.posts);
-                } else {
-                    return;
-                }
+                  .then(data => {if(data.status === "success"){setPosts(data.posts)}});
             } catch(e){
 
                 //possibly display error
@@ -109,7 +106,7 @@ function ProfilePage() {
             }
         }
         getPosts();
-    }, [])
+    }, [slideValue]);
 
     const submitEdits = function(event){
         event.preventDefault();
@@ -216,12 +213,12 @@ function ProfilePage() {
 
                                 </div>
                                 <div className='profile_page_goals_list'>
-                                    {goals.map((goal) => {return <div className='profile_page_indiv_goal'><div className='profile_page_goal_title'>{goal}</div></div>})}
+                                    {goals ? goals.map((goal) => {return <div className='profile_page_indiv_goal'><div className='profile_page_goal_title'>{goal}</div></div>}) : null}
                                 </div>
                             </div> :
                             <div className='profile_page_goals_posts'>
                                 <div className='profile_page_posts_list'>
-                                    {posts.map((post) => {return Post(post.title, post.author, post.content, post.likeCount)})}
+                                    {posts.map((post) => {return MyPost(post.id, post.title, post.author, post.content, post.likeCount)})}
                                 </div>
                             </div>}
                         
