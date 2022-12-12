@@ -3,7 +3,7 @@ import likeIcon from '../images/like_icon_gold.png';
 import commentIcon from '../images/comment_icon_gold.png';
 import { useState } from 'react';
 
-const Post = (id, title, author, content, likeCount) => {
+const Post = ({id, title, author, content, likeCount}) => {
     const [canLike, setCanLike] = useState(true);
     const [likeCountNum, setLikeCountNum] = useState(likeCount);
 
@@ -57,7 +57,6 @@ const Post = (id, title, author, content, likeCount) => {
                 <div className='post_icons'>
                     {likeCountNum}
                     <img className='post_icon' src={likeIcon} alt='likeIcon' onClick={likePost}></img>
-                    <img className='post_icon' src={commentIcon} alt='commentIcon'></img>
                 </div>
             </div>
         </div>

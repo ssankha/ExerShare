@@ -178,6 +178,19 @@ app.route('/api/getMyPosts').post(function(req, res, next) {
     );
 });
 
+app.route('/api/getAllPosts').post(function(req, res, next) {
+    connection.query(
+        "SELECT p.postID, p.title, u.email, p.content, p.likeCount FROM `Users` u JOIN (SELECT * FROM `Posts` WHERE userID IN (SELECT userID FROM `Group_Members` WHERE groupID = (SELECT groupID FROM `Group_Members` WHERE userID = ?))) p ON u.userID = p.userID;", [req.body.userId],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                console.log(results);
+                res.json({status: "success", posts: results});
+            }
+        }
+    );
+});
+
 app.route('/api/likePost').post(function(req, res, next) {
     res.json({status: "success"});
 });
