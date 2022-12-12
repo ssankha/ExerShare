@@ -13,6 +13,7 @@ import CreatePostPage from './routes/create-post-page';
 import GroupsPage from './routes/groups-page';
 import CreateGroupPage from './routes/create-group-page';
 import JoinGroupPage from './routes/join-group-page';
+import ProfilePage from './routes/profile-page';
 
 let userEmail = "";
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/join_group",
     element: <JoinGroupPage/>
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
   }
 ]);
 

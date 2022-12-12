@@ -1,0 +1,195 @@
+.profile_page_background{
+    background-color: rgba(78, 78, 78, 1);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+}
+.profile_page_container{
+    height: 70.4%;
+    width: 100%;
+    background-color: rgba(78, 78, 78, 1);
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    position: relative;
+}
+.profile_page_top_container{
+    height: 33%;
+    z-index: 2;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+    background-color: rgba(78, 78, 78, 1);
+    display: flex;
+    flex-direction: row;
+}
+.profile_page_top_blank{
+    height: 100%;
+    width: 5%;
+}
+.profile_page_top_text{
+    height: 96%;
+    width: 90%
+}
+.profile_page_username{
+    font-family: 'PT Serif Caption';
+    font-size: 48px;
+    color: white;
+}
+.profile_page_bio{
+    font-family: 'PT Serif Caption';
+    font-size: 18px;
+    color: black;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 0.5%;
+}
+.profile_page_bio_input{
+    font-family: 'PT Serif Caption';
+    font-size: 18px;
+    color: black;
+    background: transparent;
+    width: 70%;
+    height: 30%;
+    resize: none;
+}
+.profile_page_pounds{
+    font-family: 'PT Serif Caption';
+    color: rgba(170, 170, 170, 1);
+    font-size: 18px;
+    padding-top: 1%;
+}
+.profile_page_pounds_input{
+    font-family: 'PT Serif Caption';
+    background: transparent;
+    color: rgba(170, 170, 170, 1);
+    font-size: 18px;
+    max-width: 30px;
+}
+.profile_page_edit_container{
+    height: 70px;
+    width: 70px;
+    background: rgba(58, 58, 58, 1);
+    border-radius: 50%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.profile_page_edit_text{
+    font-family: 'PT Serif Caption';
+    color: rgba(170, 170, 170, 1);
+    font-size: 21px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.profile_page_submit_text{
+    font-family: 'PT Serif Caption';
+    color: rgba(170, 170, 170, 1);
+    font-size: 18px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.profile_page_bottom_container{
+    height: 67%;
+    z-index: 2;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+    background-color: rgba(30, 30, 30, 1);
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: inherit;
+}
+.profile_page_slide_container{
+    width: 150px;
+    height: 30px;
+    background:rgba(58, 58, 58, 1);
+    display: flex;
+    flex-direction: row;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+}
+.profile_page_slide_selected{
+    width: 75px;
+    height: 25px;
+    background: rgba(113, 113, 113, 1);
+    border-radius: 5px;
+    color: white;
+    padding-top: 5px;
+    font-family: 'PT Serif Caption';
+}
+.profile_page_slide_deselected{
+    width: 75px;
+    height: 25px;
+    color: rgba(150, 150, 150, 1);
+    font-family: 'PT Serif Caption';
+    padding-top: 5px; 
+}
+.profile_page_goals_posts{
+    width: 100%;
+    height: 98%;
+    padding-top: 2%;
+    display: flex;
+    flex-direction: row;
+    max-height: inherit;
+}
+.profile_page_completed_container{
+    width: 49.5%;
+    height: 50%;
+    margin-top: 65px;
+    font-family: 'PT Serif Caption';
+    font-size: 32px;
+    color: rgba(170, 170, 170, 1);
+}
+.profile_page_divider{
+    width: 1%;
+    height: 95%;
+    background:rgba(58, 58, 58, 1);
+}
+.profile_page_goals_list{
+    width: 49.5%;
+    height: 80%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
+    align-items: center;
+}
+.profile_page_posts_list{
+    width: 60%;
+    height: 80%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.profile_page_indiv_goal{
+    width: 90%;
+    min-height: 80px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background:rgba(39, 39, 39, 1);
+    display: table;
+}
+.profile_page_goal_title{
+    display: table-cell;
+    vertical-align: middle;
+    font-family: 'PT Serif Caption';
+    font-size: 40px;
+    color:rgba(150, 150, 150, 1);
+    margin-top: auto;
+    margin-bottom: auto;
+}

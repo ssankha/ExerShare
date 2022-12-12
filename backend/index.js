@@ -56,7 +56,7 @@ app.post('/api/register', function(req, res){
 
     console.log(`\tUsername: ${req.body.email}\n\tPassword: ${req.body.password}`);
     connection.query(
-        "INSERT INTO `Users` (email, password) VALUES (?, ?)", [req.body.email, req.body.password],
+        "INSERT INTO `Users` (email, password, bio, poundsDifference, numOfWorkouts, numOfGoalsCompleted) VALUES (?, ?, ?, ?, ?, ?)", [req.body.email, req.body.password, "[Put your bio here]", 0.0, 0, 0],
         function(error, results, fields) {
             if (error) {
                 console.log("Error registering.");
@@ -69,12 +69,6 @@ app.post('/api/register', function(req, res){
             }
         }
     );
-
-    if(req.body.email === "blah" && req.body.password === "1234"){
-        res.json({ status: "success" });
-    } else {
-        res.json({status: "failed"})
-    }
 });
 
 // TODO: later
@@ -87,6 +81,26 @@ app.post('/api/post', function(req, res){
     } else {
         res.json({status: "failed"})
     }
+});
+
+app.route('/api/getProfile').post(function(req, res, next) {
+    res.json({status: "success", bio: "Example Bio", pounds: 3.2, numOfGoalsCompleted: 10});
+});
+
+app.route('/api/editProfile').post(function(req, res, next) {
+    res.json({status: "success"});
+});
+
+app.route('/api/getGoals').post(function(req, res, next) {
+    res.json({status: "success", goals: ["Complete 1 Workout", "Gain/Lose 1 Pounds", "Complete 5 Workouts", "Complete 10 Workouts", "Gain/Lose 2 Pounds"]});
+});
+
+app.route('/api/getMyPosts').post(function(req, res, next) {
+    res.json({status: "success", posts: [{id: 3, title: "Post 1", author: "test@test.com", content: "content", likeCount: 2}, {title: "Post 2", author: "test@test.com", content: "content", likeCount: 6}, {title: "Post 3", author: "test@test.com", content: "content", likeCount: 13}]});
+});
+
+app.route('/api/likePost').post(function(req, res, next) {
+    res.json({status: "success"});
 });
 
 app.listen(PORT, () => {

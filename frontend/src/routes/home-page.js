@@ -8,6 +8,7 @@ import Post from '../components/views/Post';
 
 function HomePage() {
     //const navigate = useNavigate();
+    const demoId = 3;
     const demoTitle = "Arm Day";
     const demoAuthor = "@ben_zirkle";
     const demoContent = 
@@ -25,7 +26,7 @@ Triceps
                 <div className='home_page_break'></div>
                 <center>
                 <CreatePostButton />
-                {Post(demoTitle, demoAuthor, demoContent, demoLikeCount)}
+                {Post(demoId, demoTitle, demoAuthor, demoContent, demoLikeCount)}
                 </center>
             </div>
 
