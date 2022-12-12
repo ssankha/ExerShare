@@ -206,7 +206,7 @@ app.route('/api/likePost').post(function(req, res, next) {
 app.route('api/getGroups').post(function(req, res, next) {
     
     connection.query(
-        "SELECT U.groupID, U.name FROM User_Groups U, Group_Members G WHERE G.userID = ? AND U.groupID = G.groupID", [req.body.user_id],
+        "SELECT U.groupID, U.name FROM `User_Groups` U, `Group_Members` G WHERE G.userID = ? AND U.groupID = G.groupID", [req.body.user_id],
         function(error, results, fields) {
             if (error) throw error;
             else {
@@ -220,7 +220,7 @@ app.route('api/getGroups').post(function(req, res, next) {
 app.route('api/getGroupPosts').post(function(req, res, next) {
     
     connection.query(
-        "SELECT U.userId, U.email, P.postID, P.title, P.content, P.likeCount FROM User_Groups U, Posts P, Group_Members G WHERE G.groupID = ? AND U.userID = G.userID AND P.userID = U.userID", [req.body.group_id],
+        "SELECT U.userId, U.email, P.postID, P.title, P.content, P.likeCount FROM `User_Groups` U, `Posts` P, `Group_Members` G WHERE G.groupID = ? AND U.userID = G.userID AND P.userID = U.userID ORDER BY P.createdAt DESC", [req.body.group_id],
         function(error, results, fields) {
             if (error) throw error;
             else {
@@ -259,7 +259,7 @@ app.route('api/getGroup').post(function(req, res, next) {
 
 app.route('api/joinGroup').post(function(req, res, next) {
     connection.query(
-        "INSERT INTO Group_Members (groupID, userID) VALUES (?, ?)", [req.body.group_id, req.body.user_id],
+        "INSERT INTO `Group_Members` (groupID, userID) VALUES (?, ?)", [req.body.group_id, req.body.user_id],
         function(error, results, fields) {
             if (error) throw error;
             else {
