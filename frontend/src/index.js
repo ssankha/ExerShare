@@ -16,9 +16,14 @@ import JoinGroupPage from './routes/join-group-page';
 import ProfilePage from './routes/profile-page';
 
 let userEmail = "";
+let userId;
 
 function setUserEmail(newEmail){
   userEmail = newEmail;
+}
+
+function setUserId(newId){
+  userId = newId;
 }
 
 const router = createBrowserRouter([
@@ -68,4 +73,4 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-export {userEmail, setUserEmail};
+export {userEmail, setUserEmail, userId, setUserId};

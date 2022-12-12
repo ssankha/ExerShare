@@ -2,7 +2,7 @@ import {useState} from 'react';
 import './create-post-page.css';
 import {useNavigate} from 'react-router-dom';
 import RoundedButton from '../components/buttons/rounded-button';
-import { userEmail } from '../index';
+import { userEmail, userId } from '../index';
 
 function CreatePostPage() {
     const contentPlaceholder = 
@@ -35,9 +35,9 @@ Category
                 await fetch('/api/post',{
                     method: 'POST',
                     body: JSON.stringify({
-                      email: userEmail,
-                      postTitle: info.title,
-                      postContent: info.content,
+                      userId: userId,
+                      title: info.title,
+                      content: info.content,
                     }),
                     headers: {"Content-Type": "application/json"}
                   }).then(response => response.json())
