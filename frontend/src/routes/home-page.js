@@ -22,7 +22,7 @@ Triceps
             <BlankHeader />
         
             <div className='main_page_container'>
-                <div className='break'></div>
+                <div className='home_page_break'></div>
                 <center>
                 <CreatePostButton />
                 {Post(demoTitle, demoAuthor, demoContent, demoLikeCount)}
