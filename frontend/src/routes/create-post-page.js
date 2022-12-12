@@ -19,6 +19,7 @@ Category
         title: "",
         content: "",
     })
+    const [checks, setChecks] = useState({check1: false, check2: false, check3: false});
 
     const handleTitleChange = (event) => {
         setInfo({...info, title: event.target.value});
@@ -43,7 +44,6 @@ Category
                   }).then(response => response.json())
                   .then(data => status = data.status);
                 if(status === "success"){
-
                     navigate('../main');
 
                 } else {
@@ -59,6 +59,59 @@ Category
             
         }
         check();
+        async function check2(){
+            try{
+                let status;
+                await fetch('/api/addWorkout',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      userId: userId,
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => status = data.status);
+                if(status === "success"){
+
+                } else {
+                    console.log("not signed in")
+                    return;
+                }
+            } catch(e){
+
+                //should only occur if server error, display appropriate message
+
+                return;
+            }
+            
+        }
+        check2();
+        async function check3(){
+            try{
+                let status;
+                await fetch('/api/updateWorkoutGoals',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      userId: userId,
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => status = data.status);
+                if(status === "success"){
+
+
+                } else {
+                    console.log("not signed in")
+                    return;
+                }
+            } catch(e){
+
+                //should only occur if server error, display appropriate message
+
+                return;
+            }
+            
+        }
+        check3();
     }
 
 

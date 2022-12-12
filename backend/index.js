@@ -163,12 +163,30 @@ app.route('/api/editProfile').post(function(req, res, next) {
 });
 
 app.route('/api/getGoals').post(function(req, res, next) {
-    res.json({status: "success", goals: ["Complete 1 Workout", "Gain/Lose 1 Pounds", "Complete 5 Workouts", "Complete 10 Workouts", "Gain/Lose 2 Pounds"]});
+    connection.query(
+        "SELECT numOfWorkoutsNeeded, numOfPoundsDifferenceNeeded FROM `Goals` G JOIN (SELECT * FROM `Participated_Goals` WHERE userID = ?) P ON G.goalID = P.goalID", [req.body.userId],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                const data = results.map((goal) => {
+                    if(goal.numOfWorkoutsNeeded == 0){
+                        return `Gained/Lost ${goal.numOfPoundsDifferenceNeeded} Pounds`;
+                    } else if (goal.numOfWorkoutsNeeded == 1){
+                        return `Completed 1 Workout`;
+                    } else {
+                        return `Completed ${goal.numOfWorkoutsNeeded} Workouts`
+                    }
+                })
+                console.log(data);
+                res.json({status: "success", goals: data});
+            }
+        }
+    );
 });
 
 app.route('/api/getMyPosts').post(function(req, res, next) {
     connection.query(
-        "SELECT title, content, likeCount FROM Posts WHERE userID = ?", [req.body.userId],
+        "SELECT title, content, likeCount FROM Posts WHERE userID = ? ORDER BY createdAt DESC", [req.body.userId],
         function(error, results, fields) {
             if (error) throw error;
             else {
@@ -271,6 +289,41 @@ app.route('api/joinGroup').post(function(req, res, next) {
 
 
 
+
+app.route('/api/addWorkout').post(function(req, res, next) {
+    connection.query(
+        "UPDATE Users SET numOfWorkouts = numOfWorkouts + 1 WHERE userID = ?", [req.body.userId],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success"});
+            }
+        }
+    );
+});
+
+app.route('/api/updateWorkoutGoals').post(function(req, res, next) {
+    connection.query(
+        "INSERT INTO `Participated_Goals` (goalID, userID, isCompleted) VALUES ((SELECT goalID FROM `Goals` WHERE numOfWorkoutsNeeded > 0 AND numOfWorkoutsNeeded = (SELECT numOfWorkouts FROM `Users` WHERE userID = ?)), ?, 1)", [req.body.userId, req.body.userId],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success"});
+            }
+        }
+    );
+});
+app.route('/api/updatePoundsGoals').post(function(req, res, next) {
+    connection.query(
+        "INSERT INTO `Participated_Goals` (goalID, userID, isCompleted) VALUES ((SELECT goalID FROM `Goals` WHERE numOfPoundsDifferenceNeeded > 0 AND numOfPoundsDifferenceNeeded <= (SELECT poundsDifference FROM `Users` WHERE userID = ?)), ?, 1)", [req.body.userId, req.body.userId],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success"});
+            }
+        }
+    );
+});
 
 
 app.listen(PORT, () => {
