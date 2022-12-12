@@ -4,6 +4,37 @@ const express = require("express");
 const bodyParser = require('body-parser');
 
 const connection = require('./db');
+const Sequelize = require("sequelize");
+
+// ORM
+const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASS, { host: process.env.DB_HOST, dialect: 'mysql' });
+
+// Define model of `Posts` table
+const Post = sequelize.define("Post", {
+    postID: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    userID: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    title: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    content: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    likeCount: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    }
+});
+
+// END ORM
 
 const PORT = process.env.PORT || 3001;
 
@@ -75,17 +106,34 @@ app.post('/api/register', function(req, res){
 // TODO: later
 app.post('/api/post', function(req, res){
 
+// SQL (old)
+    // connection.query(
+    //     "INSERT INTO `Posts` (userID, title, content, likeCount) VALUES (?, ?, ?, 0);", [req.body.userId, req.body.title, req.body.content],
+    //     function(error, results, fields) {
+    //         if (error) {
+    //             throw error;
+    //         }
+    //         else {
+    //             res.json({ "status": "success" });
+    //         }
+    //     }
+    // );
 
-    connection.query(
-        "INSERT INTO `Posts` (userID, title, content, likeCount) VALUES (?, ?, ?, 0);", [req.body.userId, req.body.title, req.body.content],
-        function(error, results, fields) {
-            if (error) {
-                throw error;
-            }
-            else {
-                res.json({ "status": "success" });
-            }
-        }
+    // ORM (insert post) into database
+    Post.create({
+        userID: req.body.userId,
+        title: req.body.title,
+        content: req.body.content,
+        likeCount: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }).then(post => {
+        res.json({ "status": "success" });
+    }
+    ).catch(err => {
+        res.json({ "status": "fail" });
+        console.log(err);
+    }
     );
 });
 
