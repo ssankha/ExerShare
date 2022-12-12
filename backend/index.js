@@ -119,7 +119,15 @@ app.route('/api/getGoals').post(function(req, res, next) {
 });
 
 app.route('/api/getMyPosts').post(function(req, res, next) {
-    res.json({status: "success", posts: [{id: 3, title: "Post 1", author: "test@test.com", content: "content", likeCount: 2}, {title: "Post 2", author: "test@test.com", content: "content", likeCount: 6}, {title: "Post 3", author: "test@test.com", content: "content", likeCount: 13}]});
+    connection.query(
+        "SELECT title, content, likeCount FROM Posts WHERE userID = ?", [req.body.userId],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success", posts: results});
+            }
+        }
+    );
 });
 
 app.route('/api/likePost').post(function(req, res, next) {
