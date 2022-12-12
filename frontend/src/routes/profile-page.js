@@ -68,7 +68,7 @@ function ProfilePage() {
                 await fetch('/api/getGoals',{
                     method: 'POST',
                     body: JSON.stringify({
-                      email: userEmail,
+                      userId: userId,
                     }),
                     headers: {"Content-Type": "application/json"}
                   }).then(response => response.json())
@@ -139,6 +139,32 @@ function ProfilePage() {
             
         }
         check();
+        async function check2(){
+            try{
+                let status;
+                await fetch('/api/updatePoundsGoals',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      userId: userId
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => status = data.status);
+                if(status === "success"){
+                    setEditing(false);
+
+                } else {
+                    return;
+                }
+            } catch(e){
+
+                //possibly display error
+
+                return;
+            }
+            
+        }
+        check2();
     }
 
     const handleBioChange = function(event){
@@ -208,7 +234,7 @@ function ProfilePage() {
                             {slideValue === "goals" ?
                             <div className='profile_page_goals_posts'>
                                 <div className='profile_page_completed_container'>
-                                    {info.numOfGoalsCompleted} Goals Completed
+                                    {goals.length} Goal{goals.length != 1 ? <text>s</text> : null} Completed
                                 </div>
                                 <div className='profile_page_divider'>
 
