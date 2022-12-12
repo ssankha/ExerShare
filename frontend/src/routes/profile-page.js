@@ -8,7 +8,7 @@ import { setUserEmail, userEmail } from '..';
 
 function ProfilePage() {
     //const navigate = useNavigate();
-    const [slideValue, setSlideValue] = useState("posts");
+    const [slideValue, setSlideValue] = useState("goals");
     const [editing, setEditing] = useState(false);
     const [editableInfo, setEditableInfo] = useState({bio: "", pounds: ""});
     const [info, setInfo] = useState({numOfGoalsCompleted: 0});
@@ -118,7 +118,7 @@ function ProfilePage() {
                     body: JSON.stringify({
                       email: userEmail,
                       bio: editableInfo.bio,
-                      pounds: editableInfo.pounds
+                      poundsDifference: editableInfo.pounds
                     }),
                     headers: {"Content-Type": "application/json"}
                   }).then(response => response.json())

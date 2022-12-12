@@ -84,11 +84,28 @@ app.post('/api/post', function(req, res){
 });
 
 app.route('/api/getProfile').post(function(req, res, next) {
-    res.json({status: "success", bio: "Example Bio", pounds: 3.2, numOfGoalsCompleted: 10});
+    connection.query(
+        "SELECT * FROM `Users` WHERE email = ?", [req.body.email],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                const data = results[0];
+                res.json({status: "success", bio: data.bio, pounds: data.poundsDifference, numOfGoalsCompleted: data.numOfGoalsCompleted});
+            }
+        }
+    );
 });
 
 app.route('/api/editProfile').post(function(req, res, next) {
-    res.json({status: "success"});
+    connection.query(
+        "UPDATE `Users` SET bio = ?, poundsDifference = ? WHERE email = ?", [req.body.bio, req.body.poundsDifference, req.body.email],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success"});
+            }
+        }
+    );
 });
 
 app.route('/api/getGoals').post(function(req, res, next) {
