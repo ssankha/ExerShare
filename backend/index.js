@@ -31,7 +31,8 @@ app.route('/api/signIn').post(function(req, res, next) {
             else if (results.length > 0) {
                 console.log("Logged in.");
                 console.log(results);
-                res.json({ "status": "success" });
+                const data = results[0];
+                res.json({ "status": "success", userId: data.userID });
             }
             else {
                 console.log("Incorrect username or password.");
@@ -74,13 +75,18 @@ app.post('/api/register', function(req, res){
 // TODO: later
 app.post('/api/post', function(req, res){
 
-    // add SQL query that adds post to database
 
-    if(req.body.email !== undefined && req.body.email !== ""){
-        res.json({ status: "success" });
-    } else {
-        res.json({status: "failed"})
-    }
+    connection.query(
+        "INSERT INTO `Posts` (userID, title, content, likeCount) VALUES (?, ?, ?, 0);", [req.body.userId, req.body.title, req.body.content],
+        function(error, results, fields) {
+            if (error) {
+                throw error;
+            }
+            else {
+                res.json({ "status": "success" });
+            }
+        }
+    );
 });
 
 app.route('/api/getProfile').post(function(req, res, next) {
