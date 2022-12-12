@@ -42,7 +42,7 @@ function CreateGroupPage() {
         }
         else {
             // inserting new row into User_Groups
-            /*try {
+            try {
                 let res;
                 await fetch('/api/createGroup',{
                     method: 'POST',
@@ -55,7 +55,7 @@ function CreateGroupPage() {
                   .then(data => res = data);
 
                 if(res.status === "success"){
-                    setGroupId(data.group_id);
+                    setGroupId(res.group_id);
                     console.log(groupId);
                 } else {
                     return;
@@ -84,7 +84,7 @@ function CreateGroupPage() {
                 }
             } catch(e) {
                 return;
-            } */
+            } 
             
             navigate('../groups');
         }

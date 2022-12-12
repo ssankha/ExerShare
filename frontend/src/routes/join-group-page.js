@@ -33,7 +33,7 @@ function JoinGroupPage() {
         }
         else {
             // check if group credentials are correct
-            /*try {
+            try {
                 let res;
                 await fetch('/api/getGroup', {
                     method: 'POST',
@@ -84,7 +84,7 @@ function JoinGroupPage() {
                 } catch (e) {
                     return;
                 }
-            } */
+            } 
 
             
         }
