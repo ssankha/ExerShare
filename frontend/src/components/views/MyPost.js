@@ -1,4 +1,6 @@
 import './Post.css';
+import likeIcon from '../images/like_icon_gold.png';
+
 
 const MyPost = (id, title, author, content, likeCount) => {
 
@@ -16,6 +18,10 @@ const MyPost = (id, title, author, content, likeCount) => {
                 <pre className='post_content'>
                     {content}
                 </pre>
+                <div className='post_icons'>
+                    {likeCount}
+                    <img className='post_icon' src={likeIcon} alt='likeIcon'></img>
+                </div>
             </div>
         </div>
     )

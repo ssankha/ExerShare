@@ -3,7 +3,7 @@ import BlankHeader from '../components/views/BlankHeader';
 import './profile-page.css'
 import BlankFooter from '../components/views/BlankFooter';
 import MyPost from '../components/views/MyPost';
-import { setUserEmail, userEmail } from '..';
+import { setUserEmail, setUserId, userEmail, userId } from '..';
 
 
 function ProfilePage() {
@@ -34,6 +34,7 @@ function ProfilePage() {
     }
 
     setUserEmail(window.localStorage.getItem('userEmail'));
+    setUserId(window.localStorage.getItem('userId'));
 
     useEffect(() => {
         async function retrieve(){
@@ -93,7 +94,7 @@ function ProfilePage() {
                 await fetch('/api/getMyPosts',{
                     method: 'POST',
                     body: JSON.stringify({
-                      email: userEmail,
+                      userId: userId,
                     }),
                     headers: {"Content-Type": "application/json"}
                   }).then(response => response.json())
@@ -218,7 +219,7 @@ function ProfilePage() {
                             </div> :
                             <div className='profile_page_goals_posts'>
                                 <div className='profile_page_posts_list'>
-                                    {posts.map((post) => {return MyPost(post.id, post.title, post.author, post.content, post.likeCount)})}
+                                    {posts.map((post) => {return MyPost(0, post.title, userEmail, post.content, post.likeCount)})}
                                 </div>
                             </div>}
                         

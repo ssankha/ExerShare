@@ -4,6 +4,37 @@ const express = require("express");
 const bodyParser = require('body-parser');
 
 const connection = require('./db');
+const Sequelize = require("sequelize");
+
+// ORM
+const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASS, { host: process.env.DB_HOST, dialect: 'mysql' });
+
+// Define model of `Posts` table
+const Post = sequelize.define("Post", {
+    postID: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    userID: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    title: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    content: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    likeCount: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    }
+});
+
+// END ORM
 
 const PORT = process.env.PORT || 3001;
 
@@ -31,7 +62,8 @@ app.route('/api/signIn').post(function(req, res, next) {
             else if (results.length > 0) {
                 console.log("Logged in.");
                 console.log(results);
-                res.json({ "status": "success" });
+                const data = results[0];
+                res.json({ "status": "success", userId: data.userID });
             }
             else {
                 console.log("Incorrect username or password.");
@@ -74,13 +106,35 @@ app.post('/api/register', function(req, res){
 // TODO: later
 app.post('/api/post', function(req, res){
 
-    // add SQL query that adds post to database
+// SQL (old)
+    // connection.query(
+    //     "INSERT INTO `Posts` (userID, title, content, likeCount) VALUES (?, ?, ?, 0);", [req.body.userId, req.body.title, req.body.content],
+    //     function(error, results, fields) {
+    //         if (error) {
+    //             throw error;
+    //         }
+    //         else {
+    //             res.json({ "status": "success" });
+    //         }
+    //     }
+    // );
 
-    if(req.body.email !== undefined && req.body.email !== ""){
-        res.json({ status: "success" });
-    } else {
-        res.json({status: "failed"})
+    // ORM (insert post) into database
+    Post.create({
+        userID: req.body.userId,
+        title: req.body.title,
+        content: req.body.content,
+        likeCount: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }).then(post => {
+        res.json({ "status": "success" });
     }
+    ).catch(err => {
+        res.json({ "status": "fail" });
+        console.log(err);
+    }
+    );
 });
 
 app.route('/api/getProfile').post(function(req, res, next) {
@@ -113,11 +167,40 @@ app.route('/api/getGoals').post(function(req, res, next) {
 });
 
 app.route('/api/getMyPosts').post(function(req, res, next) {
-    res.json({status: "success", posts: [{id: 3, title: "Post 1", author: "test@test.com", content: "content", likeCount: 2}, {title: "Post 2", author: "test@test.com", content: "content", likeCount: 6}, {title: "Post 3", author: "test@test.com", content: "content", likeCount: 13}]});
+    connection.query(
+        "SELECT title, content, likeCount FROM Posts WHERE userID = ?", [req.body.userId],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success", posts: results});
+            }
+        }
+    );
+});
+
+app.route('/api/getAllPosts').post(function(req, res, next) {
+    connection.query(
+        "SELECT p.postID, p.title, u.email, p.content, p.likeCount FROM `Users` u JOIN (SELECT * FROM `Posts` WHERE userID IN (SELECT userID FROM `Group_Members` WHERE groupID = (SELECT groupID FROM `Group_Members` WHERE userID = ?))) p ON u.userID = p.userID ORDER BY p.createdAt DESC;", [req.body.userId],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                console.log(results);
+                res.json({status: "success", posts: results});
+            }
+        }
+    );
 });
 
 app.route('/api/likePost').post(function(req, res, next) {
-    res.json({status: "success"});
+    connection.query(
+        "UPDATE `Posts` SET likeCount = likeCount + 1 WHERE postID = ?", [req.body.post_id],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success"});
+            }
+        }
+    );
 });
 
 app.route('api/getGroups').post(function(req, res, next) {

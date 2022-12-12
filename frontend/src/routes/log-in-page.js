@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import './log-in-page.css';
 import HomeScreenButton from '../components/buttons/home-screen-button';
-import {userEmail, setUserEmail} from '../index';
+import {userEmail, setUserEmail, setUserId} from '../index';
 import {useNavigate} from 'react-router-dom';
 
 function LogInPage() {
@@ -23,7 +23,7 @@ function LogInPage() {
     const handleSignInClicked = () => {
         async function check(){
             try{
-                let status;
+                let res;
                 await fetch('/api/signIn',{
                     method: 'POST',
                     body: JSON.stringify({
@@ -32,11 +32,12 @@ function LogInPage() {
                     }),
                     headers: {"Content-Type": "application/json"}
                   }).then(response => response.json())
-                  .then(data => status = data.status);
-                if(status === "success"){
+                  .then(data => res = data);
+                if(res.status === "success"){
                     setUserEmail(info.email);
                     window.localStorage.setItem('userEmail', info.email);
-
+                    setUserId(res.userId);
+                    window.localStorage.setItem('userId', res.userId);
                     navigate('../main');
 
                 } else {
