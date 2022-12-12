@@ -3,20 +3,17 @@ import JoinGroupButton from '../components/buttons/join-group-button';
 import BlankFooter from '../components/views/BlankFooter';
 import BlankHeader from '../components/views/BlankHeader';
 import './groups-page.css';
-import { useState } from 'react';
-import dropDown from '../components/images/dropdown_symbol.png';
 import Post from '../components/views/Post';
 
 
 function GroupsPage() {
 
-    const [open, setOpen] = useState(false);
-    
+
     const demoId = 3;
     const demoTitle = "Arm Day";
     const demoAuthor = "@ben_zirkle";
-    const demoContent = 
-    `Biceps
+    const demoContent =
+        `Biceps
         Curls, 25lbs, 5sets x 10reps
 Triceps
         Overhead Extension, 45lbs, 4sets x 8reps`;
@@ -34,10 +31,15 @@ Triceps
 
                     <CreateGroupButton />
 
+                    <div className='groups_dropdown'>
+                        <div className='groups_dropbtn'>ALL POSTS</div>
+                        <div class="groups_dropdown_content">
+                            <div>Demo Group 1</div>
+                            <div>Demo Group 2</div>
+                        </div>
+                    </div>
 
-                    <div className='groups_dropdown_text'>ALL POSTS</div>
 
-                    <img className='groups_dropdown_icon' src={dropDown} alt='chariot dropdown' onClick={() => { setOpen(!open) }}></img>
 
                     <JoinGroupButton />
                 </div>
