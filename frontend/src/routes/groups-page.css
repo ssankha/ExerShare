@@ -1,0 +1,55 @@
+.groups_page_container {
+    height: 100vh;
+    background-color: rgb(78, 78, 78);
+}
+
+.break {
+    background-color: rgb(78, 78, 78);
+    height: 3%;
+    width: 100%
+}
+
+.groups_page_menu_bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.groups_dropdown_text {
+    font-family: 'Average';
+    font-size: 40px;
+    text-align: center;
+    margin-left: 15%;
+    margin-right: 1%;
+    color: rgb(245, 245, 219);
+}
+
+.groups_dropdown_icon {
+    width: 3%;
+    height: auto;
+    margin-right: 15%;
+}
+
+.groups_dropdown_menu.inactive {
+    align-items: center;
+    flex: 1;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-40px);
+    transition: var(500ms) ease;
+    border-radius: 15px;
+}
+
+.groups_dropdown_menu.active {
+    align-items: center;
+    flex: 1;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: var(500ms) ease;
+    background: rgb(0, 127, 255) ;
+    border-radius: 15px;
+}

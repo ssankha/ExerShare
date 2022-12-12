@@ -1,0 +1,11 @@
+.join_group_submit_button {
+    background-color: rgb(39, 39, 39);
+    font-family: 'Average';
+    font-size: 30px;
+    text-align: center;
+    width: 20%;
+    padding: 10px;
+    border-radius: 25px;
+    color: rgb(207, 184, 136);
+    box-shadow: 0px 5px 5px black;
+}
