@@ -203,6 +203,76 @@ app.route('/api/likePost').post(function(req, res, next) {
     );
 });
 
+app.route('api/getGroups').post(function(req, res, next) {
+    
+    connection.query(
+        "SELECT U.groupID, U.name FROM User_Groups U, Group_Members G WHERE G.userID = ? AND U.groupID = G.groupID", [req.body.user_id],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success", groups: results});
+            }
+        }
+    );
+    //res.json({status: "success", groups: [{groupID: 3, groupName: "Group1"}, {groupID: 12, groupName: "Group2"}, {groupID: 69, groupName: "Group3"}]});
+});
+
+app.route('api/getGroupPosts').post(function(req, res, next) {
+    
+    connection.query(
+        "SELECT U.userId, U.email, P.postID, P.title, P.content, P.likeCount FROM User_Groups U, Posts P, Group_Members G WHERE G.groupID = ? AND U.userID = G.userID AND P.userID = U.userID", [req.body.group_id],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success", posts: results});
+            }
+        }
+    );
+    //res.json({status: "success", groups: [{groupID: 3, groupName: "Group1"}, {groupID: 12, groupName: "Group2"}, {groupID: 69, groupName: "Group3"}]});
+});
+
+app.route('api/CreateGroup').post(function(req, res, next) {
+    
+    connection.query(
+        "INSERT INTO `User_Groups` (name, password) VALUES (?, ?)", [req.body.group_name, req.body.group_password],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success", group_id: results.insertId});
+            }
+        }
+    );
+});
+
+app.route('api/getGroup').post(function(req, res, next) {
+    connection.query(
+        "SELECT COUNT(*) as num, groupID FROM `User_Groups` WHERE name = ? AND password = ?", [req.body.group_name, req.body.group_password],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                const data = results[0];
+                res.json({status: "success", num: data.num, group_id: data.groupID});
+            }
+        }
+    );
+});
+
+app.route('api/joinGroup').post(function(req, res, next) {
+    connection.query(
+        "INSERT INTO Group_Members (groupID, userID) VALUES (?, ?)", [req.body.group_id, req.body.user_id],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status:"success"});
+            }
+        }
+    );
+});
+
+
+
+
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

@@ -3,12 +3,14 @@ import './create-group-page.css'
 import {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import CreateGroupSubmitButton from "../components/buttons/create-group-submit-button";
+import { setUserEmail, setUserId, userEmail, userId } from '..';
 
 function CreateGroupPage() {
 
     const [groupName, setGroupName] = useState("")
     const [groupPassword, setGroupPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [groupId, setGroupId] = useState(null);
 
     const [passwordMismatch, setPasswordMismatch] = useState(false);
     const [fieldEmpty, setFieldEmpty] = useState(false);
@@ -27,7 +29,9 @@ function CreateGroupPage() {
 
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    
+
+    const handleSubmit = async () => {
         if(groupPassword !== confirmPassword) {
             setFieldEmpty(false);
             setPasswordMismatch(true);
@@ -37,7 +41,51 @@ function CreateGroupPage() {
             setFieldEmpty(true);
         }
         else {
-            // add API call to insert new row in groups table and group members
+            // inserting new row into User_Groups
+            /*try {
+                let res;
+                await fetch('/api/createGroup',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      group_name: groupName,
+                      group_password: groupPassword
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => res = data);
+
+                if(res.status === "success"){
+                    setGroupId(data.group_id);
+                    console.log(groupId);
+                } else {
+                    return;
+                }
+            } catch(e) {
+                return;
+            }
+
+            // insert row into Groups_Members
+            try {
+                let res;
+                await fetch('/api/joinGroup',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      group_id: groupId,
+                      user_id: userId
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => res = data);
+
+                if(res.statuxs === "success"){
+                    console.log(userId);
+                } else {
+                    return;
+                }
+            } catch(e) {
+                return;
+            } */
+            
             navigate('../groups');
         }
        

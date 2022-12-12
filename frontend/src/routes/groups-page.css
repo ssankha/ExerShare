@@ -1,55 +1,91 @@
 .groups_page_container {
-    height: 100vh;
-    background-color: rgb(78, 78, 78);
+  height: 100%;
+  background-color: rgb(78, 78, 78);
 }
 
-.break {
-    background-color: rgb(78, 78, 78);
-    height: 3%;
-    width: 100%
+.groups_break {
+  background-color: rgb(78, 78, 78);
+  height: 3%;
+  width: 100%
 }
 
 .groups_page_menu_bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.create_group_button {
+  margin-right: 20%;
+}
+
+.join_group_button {
+  margin-left: 20%;
+}
+
+.groups_dropdown {
+  float: left;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.groups_title {
+  font-family: 'Average';
+  font-size: 60px;
+  text-align: center;
+  color: rgb(207, 184, 136);
 }
 
 
-.groups_dropdown_text {
-    font-family: 'Average';
-    font-size: 40px;
-    text-align: center;
-    margin-left: 15%;
-    margin-right: 1%;
-    color: rgb(245, 245, 219);
+.groups_dropdown .groups_dropbtn {
+  font-family: 'Average';
+  font-size: 40px;
+  text-align: center;
+  padding: 15px;
+  border-radius: 25px;
+  color: rgb(245, 245, 219);
+  box-shadow: 0px 5px 5px black;
+  outline: none;
+  border: none;
+  background-color: rgb(50, 50, 50);
 }
 
-.groups_dropdown_icon {
-    width: 3%;
-    height: auto;
-    margin-right: 15%;
+.groups_dropdown:hover .groups_dropbtn {
+  background-color: rgb(39, 39, 39);
+  color: rgb(207, 184, 136);
 }
 
-.groups_dropdown_menu.inactive {
-    align-items: center;
-    flex: 1;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-40px);
-    transition: var(500ms) ease;
-    border-radius: 15px;
+.groups_dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: rgb(78, 78, 78);
+  min-width: 160px;
+  box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
-.groups_dropdown_menu.active {
-    align-items: center;
-    flex: 1;
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    transition: var(500ms) ease;
-    background: rgb(0, 127, 255) ;
-    border-radius: 15px;
+.groups_dropdown_content div {
+  font-family: 'Average';
+  font-size: 20px;
+  text-align: center;
+  float: none;
+  color: rgb(245, 245, 219);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.groups_dropdown_content div:hover {
+  font-family: 'Average';
+  font-size: 20px;
+  text-align: center;
+  background-color: rgb(39, 39, 39);
+  color: rgb(207, 184, 136);
+}
+
+.groups_dropdown:hover .groups_dropdown_content {
+  display: block;
 }
