@@ -46,7 +46,7 @@ function RegistrationPage() {
                   .then(data => status = data.status);
                 if(status === "success"){
                     setUserEmail(info.email);
-                    //enter navigation change right here
+                    navigate('../');
 
                 } else {
                     return;

@@ -56,7 +56,7 @@ app.post('/api/register', function(req, res){
 
     console.log(`\tUsername: ${req.body.email}\n\tPassword: ${req.body.password}`);
     connection.query(
-        "INSERT INTO `Users` (email, password, bio, poundsDifference, numOfWorkouts, numOfGoalsCompleted) VALUES (?, ?)", [req.body.email, req.body.password, "[Put your bio here]", 0.0, 0, 0],
+        "INSERT INTO `Users` (email, password, bio, poundsDifference, numOfWorkouts, numOfGoalsCompleted) VALUES (?, ?, ?, ?, ?, ?)", [req.body.email, req.body.password, "[Put your bio here]", 0.0, 0, 0],
         function(error, results, fields) {
             if (error) {
                 console.log("Error registering.");
@@ -96,7 +96,11 @@ app.route('/api/getGoals').post(function(req, res, next) {
 });
 
 app.route('/api/getMyPosts').post(function(req, res, next) {
-    res.json({status: "success", posts: [{title: "Post 1", author: "test@test.com", content: "content", likeCount: 2}, {title: "Post 2", author: "test@test.com", content: "content", likeCount: 6}, {title: "Post 3", author: "test@test.com", content: "content", likeCount: 13}]});
+    res.json({status: "success", posts: [{id: 3, title: "Post 1", author: "test@test.com", content: "content", likeCount: 2}, {title: "Post 2", author: "test@test.com", content: "content", likeCount: 6}, {title: "Post 3", author: "test@test.com", content: "content", likeCount: 13}]});
+});
+
+app.route('/api/likePost').post(function(req, res, next) {
+    res.json({status: "success"});
 });
 
 app.listen(PORT, () => {
