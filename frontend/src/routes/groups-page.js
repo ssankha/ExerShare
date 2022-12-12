@@ -3,21 +3,48 @@ import JoinGroupButton from '../components/buttons/join-group-button';
 import BlankFooter from '../components/views/BlankFooter';
 import BlankHeader from '../components/views/BlankHeader';
 import './groups-page.css';
-import Post from '../components/views/Post';
+import Group from '../components/views/Group';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { setUserEmail, setUserId, userEmail, userId } from '..';
 
 
 function GroupsPage() {
 
+    const [groups, setGroups] = useState([{groupID: 3, groupName: "Group1"}, {groupID: 12, groupName: "Group2"}, {groupID: 69, groupName: "Group3"}, {groupID: 39, groupName: "Group4"}, {groupID: 23, groupName: "Group5"}]);
 
-    const demoId = 3;
-    const demoTitle = "Arm Day";
-    const demoAuthor = "@ben_zirkle";
-    const demoContent =
-        `Biceps
-        Curls, 25lbs, 5sets x 10reps
-Triceps
-        Overhead Extension, 45lbs, 4sets x 8reps`;
-    const demoLikeCount = 3;
+    
+    useEffect(() => {
+        // get this user's groups given
+        async function getGroups() {
+            try {
+                let res;
+                await fetch('/api/getGroups',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      user_id: userId,
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => res = data);
+
+                if(res.status === "success"){
+                   setGroups(res.groups);
+                   console.log(groups);
+                } else {
+                    return;
+                }
+            } catch(e) {
+                return;
+            }
+        }
+        getGroups();
+    }, []); 
+    
+    const navigate = useNavigate();
+    const handleClicked = (groupId, groupName) => {
+        navigate(`../groups/${groupId}/${groupName.replaceAll(' ', '%')}`);
+    }
 
     return (
         <div>
@@ -25,30 +52,33 @@ Triceps
 
             <div className='groups_page_container'>
 
-                <div className='break'></div>
+                <div className='groups_break'></div>
 
                 <div className='groups_page_menu_bar'>
 
-                    <CreateGroupButton />
+                    <CreateGroupButton className="create_group_btn"/>
 
-                    <div className='groups_dropdown'>
-                        <div className='groups_dropbtn'>ALL POSTS</div>
-                        <div class="groups_dropdown_content">
-                            <div>Demo Group 1</div>
-                            <div>Demo Group 2</div>
-                        </div>
-                    </div>
+                    <div className='groups_title'>Your Groups</div>
 
-
-
-                    <JoinGroupButton />
+                    <JoinGroupButton className="join_group_btn"/>
                 </div>
 
                 <br></br>
 
+                <br></br>
+
                 <center>
-                    {Post(demoId, demoTitle, demoAuthor, demoContent, demoLikeCount)}
+                    <br></br>
+                    {groups.map((group) => {return Group(group.groupID, group.groupName, handleClicked)})}
+
                 </center>
+
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+
 
             </div>
 

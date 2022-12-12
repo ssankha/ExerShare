@@ -1,0 +1,24 @@
+.group_container {
+    background-color: rgb(50, 50, 50);
+    width: 650px;
+    height: 110px;
+    border-radius: 45px;
+    margin-bottom: 40px;
+    box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.7);
+}
+
+.group_container:hover {
+    background-color: rgb(39, 39, 39);
+    z-index: 1;
+}
+
+.group_name {
+    padding-top: 30px;
+    font-size: 45px;
+    font-family: 'Average';
+    color: rgb(245, 245, 219);
+}
+
+.group_container:hover .group_name {
+    color: rgb(207, 184, 136);
+}

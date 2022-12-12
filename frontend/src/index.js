@@ -14,11 +14,17 @@ import GroupsPage from './routes/groups-page';
 import CreateGroupPage from './routes/create-group-page';
 import JoinGroupPage from './routes/join-group-page';
 import ProfilePage from './routes/profile-page';
+import GroupPostsPage from './routes/group-posts-page';
 
 let userEmail = "";
+let userId;
 
 function setUserEmail(newEmail){
   userEmail = newEmail;
+}
+
+function setUserId(newId){
+  userId = newId;
 }
 
 const router = createBrowserRouter([
@@ -53,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <ProfilePage />,
+  },
+  {
+    path: "/groups/:groupId/:groupName",
+    element: <GroupPostsPage/>
   }
 ]);
 
@@ -68,4 +78,4 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-export {userEmail, setUserEmail};
+export {userEmail, setUserEmail, userId, setUserId};
