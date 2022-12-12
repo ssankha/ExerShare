@@ -192,7 +192,15 @@ app.route('/api/getAllPosts').post(function(req, res, next) {
 });
 
 app.route('/api/likePost').post(function(req, res, next) {
-    res.json({status: "success"});
+    connection.query(
+        "UPDATE `Posts` SET likeCount = likeCount + 1 WHERE postID = ?", [req.body.post_id],
+        function(error, results, fields) {
+            if (error) throw error;
+            else {
+                res.json({status: "success"});
+            }
+        }
+    );
 });
 
 app.listen(PORT, () => {
