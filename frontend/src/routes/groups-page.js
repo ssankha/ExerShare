@@ -11,7 +11,8 @@ import Post from '../components/views/Post';
 function GroupsPage() {
 
     const [open, setOpen] = useState(false);
-
+    
+    const demoId = 3;
     const demoTitle = "Arm Day";
     const demoAuthor = "@ben_zirkle";
     const demoContent = 
@@ -44,7 +45,7 @@ Triceps
                 <br></br>
 
                 <center>
-                    {Post(demoTitle, demoAuthor, demoContent, demoLikeCount)}
+                    {Post(demoId, demoTitle, demoAuthor, demoContent, demoLikeCount)}
                 </center>
 
             </div>
