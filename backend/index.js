@@ -55,22 +55,44 @@ app.route('/api/user/:searchUserEmail').get(function(req, res, next) {
 
 app.route('/api/signIn').post(function(req, res, next) {
     console.log(`\tUsername: ${req.body.email}\n\tPassword: ${req.body.password}`);
-    connection.query(
-        "SELECT * FROM `Users` WHERE email = ? AND password = ?", [req.body.email, req.body.password],
-        function(error, results, fields) {
-            if (error) throw error;
-            else if (results.length > 0) {
-                console.log("Logged in.");
-                console.log(results);
-                const data = results[0];
-                res.json({ "status": "success", userId: data.userID });
+    // New SQL with transaction
+    // Set isolation level to SERIALIZABLE
+    connection.query("SET SESSION TRANSACTION ISOLATION LEVEL SERIALIZABLE", function(error, results, fields) {
+        if (error) throw error;
+    });
+    connection.beginTransaction(function(err) {
+        if (err) { throw err; }
+        // Set isolation level to READ COMMITTED
+        connection.query(
+            "SELECT * FROM `Users` WHERE email = ? AND password = ?", [req.body.email, req.body.password],
+            function(error, results, fields) {
+                if (error) {
+                    return connection.rollback(function() {
+                        throw error;
+                    });
+                }
+                else if (results.length > 0) {
+                    console.log("Logged in.");
+                    console.log(results);
+                    const data = results[0];
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                throw err;
+                            });
+                        }
+                        res.json({ "status": "success", userId: data.userID });
+                    });
+                }
+                else {
+                    console.log("Incorrect username or password.");
+                    res.json({ "status": "failure" });
+                }
             }
-            else {
-                console.log("Incorrect username or password.");
-                res.json({ "status": "failure" });
-            }
-        }
-    );
+        );
+    });
+
+
 });
 
 // app.post('/api/signIn', function(req, res){
@@ -210,15 +232,20 @@ app.route('/api/getAllPosts').post(function(req, res, next) {
 });
 
 app.route('/api/likePost').post(function(req, res, next) {
-    connection.query(
-        "UPDATE `Posts` SET likeCount = likeCount + 1 WHERE postID = ?", [req.body.post_id],
-        function(error, results, fields) {
-            if (error) throw error;
-            else {
-                res.json({status: "success"});
-            }
-        }
-    );
+    connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED')
+    .then(() => {
+        console.log("Transaction isolation level set to READ COMMITTED");
+        return connection.execute('START TRANSACTION');
+    })
+    // connection.query(
+    //     "UPDATE `Posts` SET likeCount = likeCount + 1 WHERE postID = ?", [req.body.post_id],
+    //     function(error, results, fields) {
+    //         if (error) throw error;
+    //         else {
+    //             res.json({status: "success"});
+    //         }
+    //     }
+    // );
 });
 
 app.route('/api/getGroups').post(function(req, res, next) {
