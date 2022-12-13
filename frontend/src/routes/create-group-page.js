@@ -6,11 +6,13 @@ import CreateGroupSubmitButton from "../components/buttons/create-group-submit-b
 import { setUserEmail, setUserId, userEmail, userId } from '..';
 
 function CreateGroupPage() {
+    setUserId(window.localStorage.getItem('userId'));
 
     const [groupName, setGroupName] = useState("")
     const [groupPassword, setGroupPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [groupId, setGroupId] = useState(null);
+
+    let groupId;
 
     const [passwordMismatch, setPasswordMismatch] = useState(false);
     const [fieldEmpty, setFieldEmpty] = useState(false);
@@ -55,14 +57,36 @@ function CreateGroupPage() {
                   .then(data => res = data);
 
                 if(res.status === "success"){
-                    setGroupId(res.group_id);
-                    console.log(groupId);
+                    console.log(res);
                 } else {
                     return;
                 }
             } catch(e) {
                 return;
             }
+
+            try {
+                let res;
+                await fetch('/api/getGroupId',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      group_name: groupName,
+                      group_password: groupPassword
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => res = data);
+                
+                console.log(res);
+                if(res.status === "success") {
+                    groupId = res.group_id;
+                    console.log(groupId);
+                }
+                
+            } catch(e) {
+                return;
+            } 
+
 
             // insert row into Groups_Members
             try {
@@ -77,7 +101,7 @@ function CreateGroupPage() {
                   }).then(response => response.json())
                   .then(data => res = data);
 
-                if(res.statuxs === "success"){
+                if(res.status === "success"){
                     console.log(userId);
                 } else {
                     return;

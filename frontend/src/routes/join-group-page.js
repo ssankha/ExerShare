@@ -6,10 +6,12 @@ import JoinGroupSubmitButton from "../components/buttons/join-group-submit-butto
 import { setUserEmail, setUserId, userEmail, userId } from '..';
 
 function JoinGroupPage() {
+    setUserId(window.localStorage.getItem('userId'));
 
     const [groupName, setGroupName] = useState("")
     const [groupPassword, setGroupPassword] = useState("");
-    const [groupId, setGroupId] = useState(null);
+    
+    let groupId;
 
     const [fieldEmpty, setFieldEmpty] = useState(false);
     const [falseInfo, setFalseInfo] = useState(false);
@@ -35,56 +37,51 @@ function JoinGroupPage() {
             // check if group credentials are correct
             try {
                 let res;
-                await fetch('/api/getGroup', {
+                await fetch('/api/getGroupId',{
                     method: 'POST',
                     body: JSON.stringify({
-                        group_name: groupName,
-                        group_password: groupPassword
+                      group_name: groupName,
+                      group_password: groupPassword
                     }),
-                    headers: { "Content-Type": "application/json" }
-                }).then(response => response.json())
-                    .then(data => res = data);
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => res = data);
+                
+                console.log(res);
+                if(res.status === "success") {
+                    groupId = res.group_id;
+                    console.log(groupId);
+                }
+                
+            } catch(e) {
+                return;
+            } 
 
-                if (res.status === "success") {
-                    if (res.num == 0) {
-                        setFalseInfo(true);
-                        setFieldEmpty(false);
-                        return;
-                    }
-                    else {
-                        setGroupId(res.group_id);
-                    }
+
+            // insert row into Groups_Members
+            try {
+                let res;
+                await fetch('/api/joinGroup',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                      group_id: groupId,
+                      user_id: userId
+                    }),
+                    headers: {"Content-Type": "application/json"}
+                  }).then(response => response.json())
+                  .then(data => res = data);
+
+                if(res.status === "success"){
+                    console.log(userId);
                 } else {
                     return;
                 }
-            } catch (e) {
+            } catch(e) {
                 return;
-            }
-            
-
-            // insert row into group_members 
-            if (!falseInfo) {
-                try {
-                    let res;
-                    await fetch('/api/joinGroup', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            group_id: groupId,
-                            user_id: userId
-                        }),
-                        headers: { "Content-Type": "application/json" }
-                    }).then(response => response.json())
-                        .then(data => res = data);
-
-                    if (res.status === "success") {
-                        navigate('../groups');
-                    } else {
-                        return;
-                    }
-                } catch (e) {
-                    return;
-                }
             } 
+            
+            navigate('../groups');
+            
 
             
         }

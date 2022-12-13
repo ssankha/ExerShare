@@ -10,9 +10,9 @@ import { setUserEmail, setUserId, userEmail, userId } from '..';
 
 
 function GroupsPage() {
-
-    const [groups, setGroups] = useState([{groupID: 3, groupName: "Group1"}, {groupID: 12, groupName: "Group2"}, {groupID: 69, groupName: "Group3"}, {groupID: 39, groupName: "Group4"}, {groupID: 23, groupName: "Group5"}]);
-
+    setUserId(window.localStorage.getItem('userId'));
+    //const [groups, setGroups] = useState([{groupID: 3, groupName: "Group1"}, {groupID: 12, groupName: "Group2"}, {groupID: 69, groupName: "Group3"}, {groupID: 39, groupName: "Group4"}, {groupID: 23, groupName: "Group5"}]);
+    const [groups, setGroups] = useState([]);
     
     useEffect(() => {
         // get this user's groups given
@@ -69,7 +69,7 @@ function GroupsPage() {
 
                 <center>
                     <br></br>
-                    {groups.map((group) => {return Group(group.groupID, group.groupName, handleClicked)})}
+                    {groups.map((group) => {return Group(group.groupID, group.name, handleClicked)})}
 
                 </center>
 
