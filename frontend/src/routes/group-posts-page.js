@@ -6,17 +6,6 @@ import Post from '../components/views/Post';
 import BlankFooter from "../components/views/BlankFooter";
 
 function GroupPostsPage() {
-
-    const demoId = 3;
-    const demoTitle = "Arm Day";
-    const demoAuthor = "@ben_zirkle";
-    const demoContent =
-        `Biceps
-        Curls, 25lbs, 5sets x 10reps
-Triceps
-        Overhead Extension, 45lbs, 4sets x 8reps`;
-    const demoLikeCount = 3;
-
     const params = useParams();
     const groupId = parseInt(params.groupId);
     const groupName = params.groupName.replaceAll('%', ' ');
@@ -59,10 +48,8 @@ Triceps
 
                 <br></br>
                 <center>
-                    {Post(demoId, demoTitle, demoAuthor, demoContent, demoLikeCount)}
-                    {Post(demoId, demoTitle, demoAuthor, demoContent, demoLikeCount)}
-                    {Post(demoId, demoTitle, demoAuthor, demoContent, demoLikeCount)}
-                    {posts.map((post) => { return Post(post.postID, post.title, post.email, post.content, post.likeCount) })}
+                    
+                    {posts.map((post) => { return <Post id={post.postID} title={post.title} author={post.email} content={post.content} likeCount={post.likeCount}/>})}
                 </center>
 
                 <br></br>

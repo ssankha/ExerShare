@@ -1,5 +1,6 @@
 .groups_page_container {
-  height: 100%;
+  height: 100vh;
+  width:100vw;
   background-color: rgb(78, 78, 78);
 }
 
